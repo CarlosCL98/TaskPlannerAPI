@@ -9,8 +9,7 @@ public class Task {
     private Status status;
     private User responsible;
 
-    public Task(int id) {
-        this.id = id;
+    public Task() {
     }
 
     public Task(int id, String title, String description, String dueDate, Status status, User responsible) {

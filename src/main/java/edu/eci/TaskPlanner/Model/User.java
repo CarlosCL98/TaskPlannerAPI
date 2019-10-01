@@ -9,8 +9,7 @@ public class User {
     private String password;
     private byte[] avatar;
 
-    public User(int id) {
-        this.id = id;
+    public User() {
     }
 
     public User(int id, String name, String username, String email, String password, byte[] avatar) {

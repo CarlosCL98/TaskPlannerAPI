@@ -9,11 +9,13 @@ public interface TaskService {
 
     List<Task> getTasksList();
 
-    Task getTaskById(String id);
+    Task getTaskById(String taskId);
 
     List<Task> getTasksByUserId(String userId);
 
     Task assignTaskToUser(String taskId, User user);
+
+    Task createTask(Task task);
 
     void removeTask(String taskId);
 
