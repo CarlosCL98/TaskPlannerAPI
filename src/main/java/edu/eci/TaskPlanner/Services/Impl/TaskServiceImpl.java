@@ -51,6 +51,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task createTask(Task task) {
+        task.setId(tasks.size() + 1);
         String taskId = String.valueOf(task.getId());
         tasks.put(taskId, task);
         return tasks.get(taskId);

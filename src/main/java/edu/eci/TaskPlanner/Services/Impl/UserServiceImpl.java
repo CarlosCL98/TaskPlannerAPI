@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        user.setId(users.size() + 1);
         String userId = String.valueOf(user.getId());
         users.put(userId, user);
         return users.get(userId);

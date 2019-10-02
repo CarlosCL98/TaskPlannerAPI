@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/taskPlanner")
+@CrossOrigin
 public class UserController {
 
     @Autowired
