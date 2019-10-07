@@ -25,7 +25,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(String userId) {
-        return users.get(userId);
+        User user = null;
+        if (users.containsKey(userId)) {
+            user = users.get(userId);
+        }
+        return user;
     }
 
     @Override
@@ -46,5 +50,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeUser(String userId) {
         users.remove(userId);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        User user = null;
+        User userTemp = null;
+        for (String userId : users.keySet()) {
+            userTemp = users.get(userId);
+            if (email.equals(userTemp.getEmail())) {
+                user = userTemp;
+                break;
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        User user = null;
+        User userTemp = null;
+        for (String userId : users.keySet()) {
+            userTemp = users.get(userId);
+            if (username.equals(userTemp.getUsername())) {
+                user = userTemp;
+                break;
+            }
+        }
+        return user;
     }
 }

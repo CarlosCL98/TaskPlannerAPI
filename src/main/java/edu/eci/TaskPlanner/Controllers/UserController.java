@@ -1,21 +1,53 @@
 package edu.eci.TaskPlanner.Controllers;
 
+import edu.eci.TaskPlanner.Config.Token;
 import edu.eci.TaskPlanner.Model.User;
 import edu.eci.TaskPlanner.Services.UserService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/taskPlanner")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/v1/user/login", method = RequestMethod.POST)
+    public Token login(@RequestBody User userLogin) throws ServletException {
+        String jwtToken = "";
+        if ((userLogin.getEmail() == null && userLogin.getUsername() == null) || userLogin.getPassword() == null) {
+            throw new ServletException("Please fill in email or username, and password");
+        }
+        String email = userLogin.getEmail();
+        String username = userLogin.getUsername();
+        String password = userLogin.getPassword();
+        User user = null;
+        if (email != null) {
+            user = userService.getUserByEmail(email);
+        } else if (username != null) {
+            user = userService.getUserByUsername(username);
+        }
+        if (user == null) {
+            throw new ServletException("User not found.");
+        }
+        String pwd = user.getPassword();
+        if (!password.equals(pwd)) {
+            throw new ServletException("Invalid login. Please check your name and password.");
+        }
+        jwtToken = Jwts.builder().setSubject(username).claim("roles", "user").setIssuedAt(new Date()).signWith(
+                SignatureAlgorithm.HS256, "secretkey").compact();
+        return new Token(jwtToken);
+    }
 
     @RequestMapping(value = "/v1/users", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsersList() {
@@ -29,8 +61,8 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/v1/users", method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    @RequestMapping(value = "/v1/user/register", method = RequestMethod.POST)
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
         User userCreated = userService.createUser(user);
         return new ResponseEntity<>(userCreated, HttpStatus.CREATED);
     }
