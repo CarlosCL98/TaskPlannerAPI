@@ -61,6 +61,17 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/v1/users/usernameEmail/{userNameEmail}", method = RequestMethod.GET)
+    public ResponseEntity<User> getUserByUsernameEmail(@PathVariable String userNameEmail) {
+        User user = null;
+        if (userNameEmail.contains("@")) {
+            user = userService.getUserByEmail(userNameEmail);
+        } else {
+            user = userService.getUserByUsername(userNameEmail);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/v1/user/register", method = RequestMethod.POST)
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         User userCreated = userService.createUser(user);
