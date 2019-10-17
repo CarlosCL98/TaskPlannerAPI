@@ -1,8 +1,14 @@
 package edu.eci.TaskPlanner.Model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Task {
 
+    @Id
     private int id;
+
     private String title;
     private String description;
     private String dueDate;
@@ -19,6 +25,13 @@ public class Task {
         this.dueDate = dueDate;
         this.status = status;
         this.responsible = responsible;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Customer[id=%s, title='%s', description='%s', dueDate='%s', status='%s', responsible='%s']",
+                id, title, description, dueDate, status, responsible);
     }
 
     public int getId() {

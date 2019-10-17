@@ -1,8 +1,14 @@
 package edu.eci.TaskPlanner.Model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class User {
 
+    @Id
     private int id;
+
     private String name;
     private String username;
     private String email;
@@ -19,6 +25,13 @@ public class User {
         this.email = email;
         this.password = password;
         this.avatar = avatar;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "User[id=%s, name='%s', username='%s', email='%s', password='%s', avatar='%s']",
+                id, name, username, email, password, avatar);
     }
 
     public int getId() {
