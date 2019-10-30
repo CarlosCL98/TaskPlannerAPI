@@ -14,17 +14,19 @@ public class Task {
     private String dueDate;
     private Status status;
     private User responsible;
+    private String fileUrl;
 
     public Task() {
     }
 
-    public Task(int id, String title, String description, String dueDate, Status status, User responsible) {
+    public Task(int id, String title, String description, String dueDate, Status status, User responsible, String fileUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
         this.responsible = responsible;
+        this.fileUrl = fileUrl;
     }
 
     @Override
@@ -80,5 +82,13 @@ public class Task {
 
     public void setResponsible(User responsible) {
         this.responsible = responsible;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 }

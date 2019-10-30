@@ -100,11 +100,11 @@ public class TaskPlannerApplicationTests {
 		taskRepository.deleteAll();
 		taskRepository.save(new Task(
 				1,"React App","Create the react app base to make the task planner app.",
-				"2019-09-16", Status.COMPLETE,null
+				"2019-09-16", Status.COMPLETE,null,null
 		));
 		taskRepository.save(new Task(
 				2,"Implement Create Task View","Implement this view to allow create tasks.",
-				"2019-09-16", Status.READY,null
+				"2019-09-16", Status.READY,null,null
 		));
 
 		int count = 0;
@@ -129,11 +129,11 @@ public class TaskPlannerApplicationTests {
 		taskRepository.deleteAll();
 		taskRepository.save(new Task(
 				1,"React App","Create the react app base to make the task planner app.",
-				"2019-09-16", Status.COMPLETE, user
+				"2019-09-16", Status.COMPLETE, user,null
 		));
 		taskRepository.save(new Task(
 				2,"Implement Create Task View","Implement this view to allow create tasks.",
-				"2019-09-16", Status.READY, user
+				"2019-09-16", Status.READY, user,null
 		));
 
 		int count = 0;
