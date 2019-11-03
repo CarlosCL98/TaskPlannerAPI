@@ -32,8 +32,8 @@ public class Task {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%s, title='%s', description='%s', dueDate='%s', status='%s', responsible='%s']",
-                id, title, description, dueDate, status, responsible);
+                "Customer[id=%s, title='%s', description='%s', dueDate='%s', status='%s', responsible='%s', fileUrl='%s']",
+                id, title, description, dueDate, status, responsible, fileUrl);
     }
 
     public int getId() {

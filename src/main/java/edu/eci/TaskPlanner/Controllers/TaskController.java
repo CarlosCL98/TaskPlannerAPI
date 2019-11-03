@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -76,7 +77,6 @@ public class TaskController {
     @RequestMapping(value = "/v1/files/{filename}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> getFileByName(@PathVariable String filename) throws IOException {
         GridFSFile file = gridFsTemplate.findOne(new Query().addCriteria(Criteria.where("filename").is(filename)));
-        //TODO implement method
         if (file == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -84,6 +84,10 @@ public class TaskController {
             return ResponseEntity.ok()
                     .contentType(MediaType.valueOf(resource.getContentType()))
                     .body(new InputStreamResource(resource.getInputStream()));
+                    /*.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getFilename())
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .contentLength(file.getLength())
+                    .body(new InputStreamResource(resource.getInputStream()));*/
         }
     }
 
